@@ -1,15 +1,19 @@
 <template>
   <div>
-    商品列表
+    注册路由
   </div>
 </template>
 
 <script>
 export default {
-  name: "List",
+  name: "Register",
   data() {
-    return {};
+    return {
+
+    };
   },
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+
+</style>

@@ -25,10 +25,47 @@
     <div class="recommend">
       <div class="title">小七推荐</div>
       <div class="recImage">
-        <img src="http://localhost:8080/images/recommend.jpeg" alt="" />
-        <img src="http://localhost:8080/images/recommend.jpeg" alt="" />
+        <img
+          :src="item"
+          alt=""
+          v-for="(item, index) in recImgList"
+          :key="index"
+        />
       </div>
     </div>
+    <!-- 爆款推荐 -->
+    <div class="recommend">
+      <div class="title">爆款推荐</div>
+      <div class="cart" v-for="item in recommendListCom" :key="item.id">
+        <div class="tag">{{ tags[item.id] }}</div>
+        <div class="left">
+          <img :src="item.imgUrl" :alt="item.name" />
+        </div>
+        <div class="right">
+          <div class="name">
+            {{ item.name }}
+            <span>{{ item.content }}</span>
+          </div>
+          <div class="price">￥{{ item.price }}</div>
+        </div>
+      </div>
+    </div>
+    <!-- 猜你喜欢 -->
+    <div class="recommend">
+      <div class="title">猜你喜欢</div>
+      <div class="info">
+        <div class="product" v-for="item in likeListCom" :key="item.id">
+          <div class="pic">
+            <img :src="item.imgUrl" :alt="item.name" />
+          </div>
+          <div class="v">
+            <span>{{ item.name }}</span>
+            <span>￥{{ item.price }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
     <!-- 底部 -->
     <Tabbar />
   </div>
@@ -47,6 +84,11 @@ export default {
       iconsList: [],
       recommendList: [],
       likeList: [],
+      tags: ["老铁推荐", "爆款", "茶友必备"],
+      recImgList: [
+        "http://img.tea7.com/0160209_0.png?x-oss-process=image/resize,w_720",
+        "http://img.tea7.com/0149845_0.png?x-oss-process=image/resize,w_720",
+      ],
     };
   },
   mounted() {
@@ -61,6 +103,18 @@ export default {
     },
     iconListsCom() {
       return this.iconsList.map((item) => {
+        item.imgUrl = location.origin + item.imgUrl.slice(1);
+        return item;
+      });
+    },
+    recommendListCom() {
+      return this.recommendList.map((item) => {
+        item.imgUrl = location.origin + item.imgUrl.slice(1);
+        return item;
+      });
+    },
+    likeListCom() {
+      return this.likeList.map((item) => {
         item.imgUrl = location.origin + item.imgUrl.slice(1);
         return item;
       });
@@ -113,7 +167,7 @@ export default {
   }
   .recommend {
     margin-top: 10px;
-    height: 150px;
+    min-height: 150px;
     box-sizing: border-box;
     background-color: #fff;
     display: flex;
@@ -123,6 +177,23 @@ export default {
       text-align: center;
       font-size: 20px;
       padding: 10px;
+      position: relative;
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #d4c0a7;
+        top: 20px;
+      }
+      &::before {
+        left: 120px;
+      }
+      &::after {
+        right: 120px;
+      }
     }
     .recImage {
       padding: 10px;
@@ -132,6 +203,81 @@ export default {
       img {
         border-radius: 10px;
         width: 45%;
+      }
+    }
+    .cart {
+      position: relative;
+      margin: 10px;
+      background-color: #f5f5f5;
+      border-radius: 10px;
+      .tag {
+        background-color: #d4c0a7;
+        color: #fff;
+        border-radius: 0 0 8px 8px;
+        padding: 5px;
+        position: absolute;
+        left: 10px;
+      }
+      .left,
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .right {
+        padding: 0 5px;
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        color: #666666;
+        .name {
+          font-size: 13px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          span {
+            font-size: 16px;
+            color: #333333;
+          }
+        }
+        .price {
+          padding-right: 20px;
+          text-align: right;
+          font-size: 20px;
+          color: #b0352f;
+        }
+      }
+    }
+    .info {
+      padding: 5px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .product {
+        width: 48%;
+        .pic {
+          background-color: #f3f3f3;
+        }
+        img {
+          width: 100%;
+        }
+        .v {
+          display: flex;
+          flex-direction: column;
+          font-size: 18px;
+          & > span:first-child {
+            padding: 8px 0;
+          }
+          & > span:last-child {
+            padding: 0 0 8px 0;
+            color: #b0352f;
+          }
+        }
       }
     }
   }

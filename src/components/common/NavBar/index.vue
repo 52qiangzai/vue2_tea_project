@@ -32,16 +32,6 @@ export default {
       default: "",
     },
   },
-  data() {
-    return {};
-  },
-  mounted() {},
-
-  methods: {
-    aaa() {
-      console.log(3);
-    },
-  },
 };
 </script>
 <style lang="less" scoped></style>

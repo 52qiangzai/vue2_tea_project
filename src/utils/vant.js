@@ -9,7 +9,11 @@ import {
   Lazyload,
   Tab,
   Tabs,
-  Swipe, SwipeItem 
+  Swipe,
+  SwipeItem,
+  TreeSelect,
+  Form,
+  Toast
 } from "vant";
 import "@vant/touch-emulator";
 let vantUIs = [
@@ -23,10 +27,14 @@ let vantUIs = [
   Lazyload,
   Tab,
   Tabs,
-  Swipe, SwipeItem 
+  Swipe,
+  SwipeItem,
+  TreeSelect,
+  Form
 ];
 export default {
   install(Vue) {
+    Vue.$toast = Toast;
     vantUIs.forEach((vantUI) => {
       //   Vue.component(vantUI.name, vantUI)
       Vue.use(vantUI);

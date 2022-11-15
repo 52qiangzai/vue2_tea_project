@@ -29,11 +29,6 @@ const routes = [
     name:'login',
     path:'/login',
     component:()=>import('@/views/Login')
-  },
-  {
-    name:'register',
-    path:'/reg',
-    component:()=>import('@/views/Register')
   }
 ];
 
